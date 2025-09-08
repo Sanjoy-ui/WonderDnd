@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderDnd</title>
+</head>
+<body>
+    hi
+    <% if(locals.data_Collections){ %>
+    <ul>
+        <% data_Collections.forEach((data)=>{ %>
+        <li><a href="/listings/<%=data._id%>"><%=data.title %></a></li>
+    <% }) %>
+    </ul>
+    <% } %>
+</body>
+</html>
+
