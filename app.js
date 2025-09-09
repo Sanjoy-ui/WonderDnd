@@ -8,6 +8,7 @@ const path = require("path");
 
 app.set("view engine", "ejs")
 app.set("views" , path.join(__dirname, "views"))
+app.use(express.urlencoded({extended : true}))
 
 app.get("/", (req,res)=>{
     res.send("Im root");
@@ -20,6 +21,13 @@ app.get("/listings", async (req , res)=> {
 })
 
 // show route
+
+app.get("/listings/:id" , async (req , res)=>{
+    const { id }= req.params;
+    const stuffData = await Listing.findById(id)
+    res.render("listings/show" , {stuffData})
+    // console.log(stuffData , "okkkkkkk")
+})
 
 // app.get("/listingTest" ,  (req,res)=>{
 //     const sampleListing = new Listing({
