@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WonderDnd</title>
+</head>
+<body>
+    <form action="/listings/<%=stuffData._id%>?_method=PUT" method="post">
+       <input type="text" name="stuffData[title]" value="<%= stuffData.title %>"><br>
+<input type="text" name="stuffData[description]" value="<%= stuffData.description %>"><br>
+<input type="number" name="stuffData[price]" value="<%= stuffData.price %>"><br>
+<input type="text" name="stuffData[image]" value="<%= stuffData.image %>"><br>
+<input type="text" name="stuffData[location]" value="<%= stuffData.location %>"><br>
+<input type="text" name="stuffData[country]" value="<%= stuffData.country %>"><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

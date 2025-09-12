@@ -6,8 +6,12 @@
     <title>WonderDnd</title>
 </head>
 <body>
-    hi
+    <h3>All listings</h3>
+    
     <% if(locals.data_Collections){ %>
+        <form method="get" action="/listings/new">
+        <button>Create new Listing</button>
+        </form>
     <ul>
         <% data_Collections.forEach((data)=>{ %>
         <li><a href="/listings/<%=data._id%>"><%=data.title %></a></li>
