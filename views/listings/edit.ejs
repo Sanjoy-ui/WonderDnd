@@ -1,20 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WonderDnd</title>
-</head>
+<% layout("/layouts/boilerplate") %>
 <body>
-    <form action="/listings/<%=stuffData._id%>?_method=PUT" method="post">
-       <input type="text" name="stuffData[title]" value="<%= stuffData.title %>"><br>
-<input type="text" name="stuffData[description]" value="<%= stuffData.description %>"><br>
-<input type="number" name="stuffData[price]" value="<%= stuffData.price %>"><br>
-<input type="text" name="stuffData[image]" value="<%= stuffData.image %>"><br>
-<input type="text" name="stuffData[location]" value="<%= stuffData.location %>"><br>
-<input type="text" name="stuffData[country]" value="<%= stuffData.country %>"><br>
+    <div class="row">
+        <div class="col-8 offset-2">
 
-        <button type="submit">Submit</button>
+        <br>
+        <br>
+    <form action="/listings/<%=stuffData._id%>?_method=PUT" method="post">
+        <div class="md-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" name="stuffData[title]" value="<%= stuffData.title %>">
+        </div>
+        <div class="md-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" name="stuffData[description]" value="<%= stuffData.description %>">
+        </div>
+        <div class="md-3">
+            <label for="image" class="form-label">Iamge Url / Link</label>
+            <input type="text" class="form-control" name="stuffData[image][url]" value="<%= stuffData.image %>">
+        </div>
+        <div class="row">
+            <div class="md-3 col-md-4">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" name="stuffData[price]" value="<%= stuffData.price %>">
+        </div>
+        <div class="md-3 col-md-8">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" name="stuffData[country]" value="<%= stuffData.country %>">
+        </div>
+        </div>
+        
+        <div class="md-3">
+            <label for="location" class="form-label">Locataion</label>
+            <input type="text" name="stuffData[location]" class="form-control" value="<%= stuffData.location %>">
+        </div>
+
+
+
+
+        <br>
+        <button class="edit-btn btn btn-dark mt-3" type="submit">Edit</button>
     </form>
+    </div>
+    </div>
 </body>
-</html>

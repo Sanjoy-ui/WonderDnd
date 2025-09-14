@@ -1,30 +1,47 @@
 <% layout("/layouts/boilerplate") %>
-<body>
-    <h3>Listing Details:</h3>
+<body >
+    <div class="row mt-3">
+    <div class="col-8 offset-3">
+    <h3>Listing Details :</h3>
+    </div>
     
-    <!-- Fix: Check if stuffData exists (not stuffData.length) -->
-    <% if(stuffData) { %>
-        <ul>
-            <li><strong>Title:</strong> <%=stuffData.title%></li>
-            <li><strong>Description:</strong> <%=stuffData.description%></li>
-            <li><strong>Price:</strong> &#8377;<%=stuffData.price.toLocaleString("en-IN")%></li>
-            <li><strong>Location:</strong> <%=stuffData.location%></li>
-            <li><strong>Country:</strong> <%=stuffData.country%></li>
-        </ul>
+    <div class="card show-card col-6 offset-3 ">
+        <img src="<%=stuffData.image.url %>" class="show-img card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">
+        <b><%= stuffData.title  %></b><br>
+        <%=stuffData.description  %> <br>
+        &#8377;<%=stuffData.price.toLocaleString("en-IN")  %> <br>
+        <%= stuffData.location  %> <br>
+        <%= stuffData.country  %> <br>
+    </p>
+  </div>
+    </div>
+
+
+       
         
-        <br>
-        <a href="/listings/<%=stuffData._id%>/edit">Edit this listing</a>
-        <br><br>
         
-        <form method="post" action="/listings/<%=stuffData._id%>?_method=DELETE">
-            <button type="submit">Delete this listing</button>
-        </form>
         
-        <br><br>
-        <a href="/listings">← Back to all listings</a>
         
-    <% } else { %>
-        <p>Listing not found!</p>
-        <a href="/listings">← Back to all listings</a>
-    <% } %>
+        <!-- <br><br>
+        <a href="/listings">← Back to all listings</a> -->
+        
+    
+    
+   
+    
+    <div class="btns">
+            <a href="/listings/<%=stuffData._id%>/edit" class="edit-btn btn btn-dark col-1 offset-3">Edit</a>
+        
+            <form method="post" action="/listings/<%=stuffData._id%>?_method=DELETE">
+            <button type="submit" class="btn btn-dark  offset-4">Delete</button>
+            </form>
+            
+        </div>
+        
+    </div>
+    <br><br>
+     
+   
 </body>

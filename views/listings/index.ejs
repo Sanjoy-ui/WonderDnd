@@ -1,18 +1,36 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <h3>All listings</h3>
-    
-    <!-- <form method="get" action="/listings/new">
+  <h3>All listings</h3>
+
+  <!-- <form method="get" action="/listings/new">
         <button>Create new Listing</button>
     </form> -->
-    
-    <% if (data_Collections && data_Collections.length > 0) { %>
-        <ul>
-            <% data_Collections.forEach(function(data) { %>
-                <li><a href="/listings/<%=data._id%>"><%=data.title%></a></li>
-            <% }); %>
-        </ul>
-    <% } else { %>
-        <p>No listings available. <a href="/listings/new">Create the first one!</a></p>
-    <% } %>
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+        <% if (data_Collections && data_Collections.length > 0) { %>
+    <% data_Collections.forEach(function(data) { %>
+        <a href="/listings/<%=data._id%>" class="listing-link">
+     <div class="card col" >
+    <img src="<%=data.image.url%>" style="height: 20rem;" class="card-img-top" alt="" />
+    <div class="card-img-overlay">abcd</div>
+    <div class="card-body">
+      <p class="card-text">
+        <b><%= data.title  %></b> <br>
+        <%= data.price.toLocaleString("en-IN") %>
+      </p>
+    </div>
+  </div>
+  </a>
+   <% }); %>
+  
+  <% } else { %>
+  <p>
+    No listings available. <a href="/listings/new">Create the first one!</a>
+  </p>
+  <% } %>
+    </div>
+
+  
 </body>
+
+<!-- {  filename: 'listingimage',  url: 'https://images.pexels.com/photos/33434135/pexels-photo-33434135.jpeg'} -->

@@ -56,6 +56,7 @@ app.post("/listings", async (req, res) => {
         const newListing = new Listing(req.body.listing);
         await newListing.save();
         console.log("New listing created:", newListing);
+        
         res.redirect("/listings");
     } catch (error) {
         console.error("Error creating listing:", error);
