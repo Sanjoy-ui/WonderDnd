@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WonderDnd</title>
-</head>
+<% layout("/layouts/boilerplate") %>
 <body>
-    <h3>Listing Details : </h3>
-    <% if(locals.stuffData){ %>
-    <ul>
-        <li><%=stuffData.title%></li>
-        <li><%=stuffData.description%></li>
-        <li>&#8377;<%=stuffData.price.toLocaleString("en-IN")%></li>
-        <li><%=stuffData.location%></li>
-        <li><%=stuffData.country%></li>
-    </ul>
-    <a href="/listings/<%=stuffData._id  %>/edit">Edit listings</a>
-   <% } %>
+    <h3>Listing Details:</h3>
+    
+    <!-- Fix: Check if stuffData exists (not stuffData.length) -->
+    <% if(stuffData) { %>
+        <ul>
+            <li><strong>Title:</strong> <%=stuffData.title%></li>
+            <li><strong>Description:</strong> <%=stuffData.description%></li>
+            <li><strong>Price:</strong> &#8377;<%=stuffData.price.toLocaleString("en-IN")%></li>
+            <li><strong>Location:</strong> <%=stuffData.location%></li>
+            <li><strong>Country:</strong> <%=stuffData.country%></li>
+        </ul>
+        
+        <br>
+        <a href="/listings/<%=stuffData._id%>/edit">Edit this listing</a>
+        <br><br>
+        
+        <form method="post" action="/listings/<%=stuffData._id%>?_method=DELETE">
+            <button type="submit">Delete this listing</button>
+        </form>
+        
+        <br><br>
+        <a href="/listings">← Back to all listings</a>
+        
+    <% } else { %>
+        <p>Listing not found!</p>
+        <a href="/listings">← Back to all listings</a>
+    <% } %>
 </body>
-</html>

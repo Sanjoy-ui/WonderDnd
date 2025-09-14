@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WonderDnd</title>
-</head>
+<% layout("/layouts/boilerplate") %>
 <body>
     <h3>All listings</h3>
     
-    <% if(locals.data_Collections){ %>
-        <form method="get" action="/listings/new">
+    <!-- <form method="get" action="/listings/new">
         <button>Create new Listing</button>
-        </form>
-    <ul>
-        <% data_Collections.forEach((data)=>{ %>
-        <li><a href="/listings/<%=data._id%>"><%=data.title %></a></li>
-    <% }) %>
-    </ul>
+    </form> -->
+    
+    <% if (data_Collections && data_Collections.length > 0) { %>
+        <ul>
+            <% data_Collections.forEach(function(data) { %>
+                <li><a href="/listings/<%=data._id%>"><%=data.title%></a></li>
+            <% }); %>
+        </ul>
+    <% } else { %>
+        <p>No listings available. <a href="/listings/new">Create the first one!</a></p>
     <% } %>
 </body>
-</html>
-
