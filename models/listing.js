@@ -9,7 +9,9 @@ const listingSchema = mongoose.Schema({
         type : String
     },
     image : {
-        filename : String,
+        filename : {
+            type : String,
+        },
         url : String,
         // type : String,
         // default : "https://images.pexels.com/photos/30874496/pexels-photo-30874496.jpeg",

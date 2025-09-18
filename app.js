@@ -7,6 +7,9 @@ const mongoose = require("mongoose");
 const Listing = require("./models/listing.js");
 const path = require("path");
 const ejsMate = require("ejs-mate")
+const wrapAsync = require("./utils/wrapAsync.js")
+const wrapAsync = require("./utils/expressError.js");
+const expressError = require("./utils/expressError.js");
 
 app.engine("ejs" ,ejsMate )
 app.use(methodOverride('_method'));
@@ -45,7 +48,7 @@ app.get("/listings", async (req, res) => {
     }
 });
 
-// New route (MUST come before /listings/:id)
+
 app.get("/listings/new", (req, res) => {
     res.render("listings/new");
 });
@@ -53,7 +56,7 @@ app.get("/listings/new", (req, res) => {
 // Create route
 app.post("/listings", async (req, res) => {
     try {
-        const newListing = new Listing(req.body.listing);
+        const newListing = new Listing(req.body.listing);       // wrapAsync 
         await newListing.save();
         console.log("New listing created:", newListing);
         
@@ -169,6 +172,11 @@ async function connectdb() {
         process.exit(1);
     }
 }
+
+app.use((err , req ,res ,next)=>{
+    let {statusCode , message  } = new expressError
+    res.status(statusCode).send(message)
+})
 
 app.listen(8576, () => {
     console.log(`Server is running on port 8576`);

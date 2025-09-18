@@ -16,7 +16,7 @@
     <div class="card-body">
       <p class="card-text">
         <b><%= data.title  %></b> <br>
-        <%= data.price.toLocaleString("en-IN") %>
+        <%= Number(data.price).toLocaleString("en-IN") %>
       </p>
     </div>
   </div>
@@ -33,4 +33,3 @@
   
 </body>
 
-<!-- {  filename: 'listingimage',  url: 'https://images.pexels.com/photos/33434135/pexels-photo-33434135.jpeg'} -->
