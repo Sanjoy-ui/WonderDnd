@@ -8,8 +8,9 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const ejsMate = require("ejs-mate")
 const wrapAsync = require("./utils/wrapAsync.js")
-const wrapAsync = require("./utils/expressError.js");
-const expressError = require("./utils/expressError.js");
+const ExpressErrors = require("./utils/ExpressErrors.js")
+
+
 
 app.engine("ejs" ,ejsMate )
 app.use(methodOverride('_method'));
@@ -64,6 +65,7 @@ app.post("/listings", async (req, res) => {
     } catch (error) {
         console.error("Error creating listing:", error);
         res.status(500).send("Error creating listing");
+        next(err)
     }
 });
 
@@ -173,10 +175,13 @@ async function connectdb() {
     }
 }
 
-app.use((err , req ,res ,next)=>{
-    let {statusCode , message  } = new expressError
-    res.status(statusCode).send(message)
-})
+
+
+// app.use((err , req , res , next)=>{
+//     let {statusCode , message}= Error;
+
+//     res.status(statusCode).send(message)
+// })
 
 app.listen(8576, () => {
     console.log(`Server is running on port 8576`);
