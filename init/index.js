@@ -17,4 +17,7 @@ const initdb = async()=>{
     console.log("data successfully inserted");
 }
 
+
+
+// done
 initdb()
