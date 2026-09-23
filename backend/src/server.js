@@ -28,8 +28,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// AWS Health Check Route (for ALB, EC2, ECS, or Beanstalk)
-app.get("/api/health", (req, res) => {
+// Health Check Route (supports both /health and /api/health for AWS ALB, Beanstalk, or direct requests)
+app.get(["/health", "/api/health"], (req, res) => {
     res.status(200).json({
         status: "healthy",
         uptime: process.uptime(),
@@ -39,11 +39,12 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// Root API Route
-app.get("/api", (req, res) => {
+// Root API Route (supports both / and /api)
+app.get(["/", "/api"], (req, res) => {
     res.json({
         message: "Welcome to WonderDnd REST API",
         version: "1.0.0",
+        status: "online",
         endpoints: {
             health: "/api/health",
             listings: "/api/listings",
@@ -76,13 +77,24 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Start Server
+// Start Server with error handling
 const server = app.listen(PORT, () => {
     console.log(`========================================`);
     console.log(`🚀 WonderDnd API running on port ${PORT}`);
-    console.log(`🌐 Healthcheck: http://localhost:${PORT}/api/health`);
+    console.log(`🌐 Healthcheck: http://localhost:${PORT}/api/health (or /health)`);
     console.log(`📋 Listings API: http://localhost:${PORT}/api/listings`);
     console.log(`========================================`);
+});
+
+server.on("error", (error) => {
+    if (error.code === "EADDRINUSE") {
+        console.error(`\n❌ Error: Port ${PORT} is already in use by another process.`);
+        console.error(`👉 Solutions:`);
+        console.error(`   1. Run 'lsof -i :${PORT}' and 'kill -9 <PID>' to free the port.`);
+        console.error(`   2. Or change PORT in backend/.env to another port like 8080 or 8577.\n`);
+    } else {
+        console.error("Server error:", error);
+    }
 });
 
 // Handle unhandled promise rejections
